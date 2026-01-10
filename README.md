@@ -116,6 +116,7 @@ Flags:
 Global Flags:
   -f, --format string   output format (table, json) (default "table")
   -l, --limit int       maximum number of results to display on screen (default 500)
+  -q, --quiet           suppress non-essential output
 ```
 
 ## Disclaimer  
