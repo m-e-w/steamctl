@@ -62,20 +62,25 @@ func init() {
 		"table",
 		"output format (table, json)",
 	)
+	rootCmd.PersistentFlags().BoolVarP(
+		&debug,
+		"debug",
+		"d",
+		false,
+		"show debug messages",
+	)
 }
 
 func initConfig() {
 	viper.AutomaticEnv()
-	steamAPIKey := viper.GetString("STEAM_API_KEY")
 
+	steamAPIKey := viper.GetString("STEAM_API_KEY")
 	if steamAPIKey == "" {
 		fmt.Fprintln(os.Stderr, "STEAM_API_KEY is not set")
 		os.Exit(1)
 	}
 
 	steamIDEnv = viper.GetString("STEAM_ID")
-	debug = false
-
 	steamClient = steam.NewClient(
 		steamAPIKey,
 		debug,
