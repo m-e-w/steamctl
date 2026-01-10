@@ -1,11 +1,11 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
 	"text/tabwriter"
-	"time"
 
 	"github.com/m-e-w/steamctl/internal/cli"
 	"github.com/m-e-w/steamctl/steam"
@@ -66,12 +66,13 @@ Examples:
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 		defer w.Flush()
 
-		if !quiet {
+		if !quiet && format == "table" {
 			fmt.Fprintln(w, "\n#\tID\tNAME\tPLAYTIME (hrs)\tLAST PLAYED")
 			fmt.Fprintln(w, "-\t--\t----\t--------------\t-----------")
 		}
 
 		count := 0
+		results := make([]steam.Game, 0, limit)
 		for _, item := range items {
 			if query != "" && !strings.Contains(strings.ToLower(item.Name), query) {
 				continue
@@ -80,17 +81,29 @@ Examples:
 				break
 			}
 			count++
-			fmt.Fprintf(
-				w,
-				"%d\t%d\t%s\t%.2f\t%v\n",
-				count,
-				item.ID,
-				item.Name,
-				float64(item.PlaytimeForever)/60.0,
-				time.Unix(item.RtimeLastPlayed, 0).Local().Format("2006-01-02 15:04:05"),
-			)
+
+			if format == "table" {
+				fmt.Fprintf(
+					w,
+					"%d\t%d\t%s\t%.2f\t%v\n",
+					count,
+					item.ID,
+					item.Name,
+					float64(item.PlaytimeForever)/60.0,
+					cli.FormatUnixTime(item.RtimeLastPlayed),
+				)
+			}
+			if format == "json" {
+				results = append(results, item)
+			}
+
 		}
-		if !quiet {
+		if format == "json" {
+			enc := json.NewEncoder(os.Stdout)
+			enc.SetIndent("", "  ")
+			return enc.Encode(results)
+		}
+		if !quiet && format == "table" {
 			fmt.Fprintf(w, "\nShowing %d of %d games\n", count, total)
 		}
 

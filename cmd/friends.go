@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
@@ -66,12 +67,13 @@ Examples:
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 		defer w.Flush()
 
-		if !quiet {
+		if !quiet && format == "table" {
 			fmt.Fprintln(w, "\n#\tID\tNAME\tLast LOG\tCREATED\tPROFILE URL")
 			fmt.Fprintln(w, "-\t--\t----\t--------\t-------\t-----------")
 		}
 
 		count := 0
+		results := make([]steam.PlayerSummary, 0, limit)
 		for _, item := range items {
 			if query != "" && !strings.Contains(strings.ToLower(item.Name), query) {
 				continue
@@ -80,18 +82,28 @@ Examples:
 				break
 			}
 			count++
-			fmt.Fprintf(
-				w,
-				"%d\t%s\t%s\t%v\t%v\t%s\n",
-				count,
-				item.ID,
-				item.Name,
-				cli.FormatUnixTime(item.LastLogOff),
-				cli.FormatUnixTime(item.TimeCreated),
-				item.ProfileURL,
-			)
+
+			if format == "table" {
+				fmt.Fprintf(
+					w,
+					"%d\t%s\t%s\t%v\t%v\t%s\n",
+					count,
+					item.ID,
+					item.Name,
+					cli.FormatUnixTime(item.LastLogOff),
+					cli.FormatUnixTime(item.TimeCreated),
+					item.ProfileURL,
+				)
+			} else {
+				results = append(results, item)
+			}
 		}
-		if !quiet {
+		if format == "json" {
+			enc := json.NewEncoder(os.Stdout)
+			enc.SetIndent("", "  ")
+			return enc.Encode(results)
+		}
+		if !quiet && format == "table" {
 			fmt.Fprintf(w, "\nShowing %d of %d friends\n", count, len(items))
 		}
 

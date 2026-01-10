@@ -19,6 +19,7 @@ var steamClient *steam.Client
 var sortBy string
 var limit int
 var quiet bool
+var format string
 
 var rootCmd = &cobra.Command{
 	Use:   "steamctl",
@@ -53,6 +54,13 @@ func init() {
 		"q",
 		false,
 		"suppress non-essential output",
+	)
+	rootCmd.PersistentFlags().StringVarP(
+		&format,
+		"format",
+		"f",
+		"table",
+		"output format (table, json)",
 	)
 }
 
