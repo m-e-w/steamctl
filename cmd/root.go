@@ -18,6 +18,7 @@ var steamClient *steam.Client
 
 var sortBy string
 var limit int
+var quiet bool
 
 var rootCmd = &cobra.Command{
 	Use:   "steamctl",
@@ -45,6 +46,13 @@ func init() {
 		"l",
 		500,
 		"maximum number of results to display on screen",
+	)
+	rootCmd.PersistentFlags().BoolVarP(
+		&quiet,
+		"quiet",
+		"q",
+		false,
+		"suppress non-essential output",
 	)
 }
 

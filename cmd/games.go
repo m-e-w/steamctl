@@ -66,8 +66,10 @@ Examples:
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 		defer w.Flush()
 
-		fmt.Fprintln(w, "\n#\tID\tNAME\tPLAYTIME (hrs)\tLAST PLAYED")
-		fmt.Fprintln(w, "-\t--\t----\t--------------\t-----------")
+		if !quiet {
+			fmt.Fprintln(w, "\n#\tID\tNAME\tPLAYTIME (hrs)\tLAST PLAYED")
+			fmt.Fprintln(w, "-\t--\t----\t--------------\t-----------")
+		}
 
 		count := 0
 		for _, item := range items {
@@ -88,7 +90,9 @@ Examples:
 				time.Unix(item.RtimeLastPlayed, 0).Local().Format("2006-01-02 15:04:05"),
 			)
 		}
-		fmt.Fprintf(w, "\nShowing %d of %d games\n", count, total)
+		if !quiet {
+			fmt.Fprintf(w, "\nShowing %d of %d games\n", count, total)
+		}
 
 		return nil
 	},

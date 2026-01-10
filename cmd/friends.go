@@ -66,8 +66,10 @@ Examples:
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 		defer w.Flush()
 
-		fmt.Fprintln(w, "\n#\tID\tNAME\tLast LOG\tCREATED\tPROFILE URL")
-		fmt.Fprintln(w, "-\t--\t----\t--------\t-------\t-----------")
+		if !quiet {
+			fmt.Fprintln(w, "\n#\tID\tNAME\tLast LOG\tCREATED\tPROFILE URL")
+			fmt.Fprintln(w, "-\t--\t----\t--------\t-------\t-----------")
+		}
 
 		count := 0
 		for _, item := range items {
@@ -89,7 +91,9 @@ Examples:
 				item.ProfileURL,
 			)
 		}
-		fmt.Fprintf(w, "\nShowing %d of %d friends\n", count, len(items))
+		if !quiet {
+			fmt.Fprintf(w, "\nShowing %d of %d friends\n", count, len(items))
+		}
 
 		return nil
 	},
