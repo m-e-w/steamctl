@@ -9,6 +9,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+var version = "dev"
+
 var steamIDFlag string
 var steamIDEnv string
 var debug bool
@@ -25,6 +27,7 @@ var rootCmd = &cobra.Command{
 Use steamctl to retrieve information about Steam accounts, friends,
 and game libraries, including owned games, playtime statistics,
 and player summaries.`,
+	Version: version,
 }
 
 func Execute() {
