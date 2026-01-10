@@ -78,6 +78,8 @@ Available Commands:
 Flags:
   -h, --help        help for steamctl
   -l, --limit int   maximum number of results to display on screen (default 500)
+  -q, --quiet       suppress non-essential output
+  -v, --version     version for steamctl
 
 Use "steamctl [command] --help" for more information about a command.
 ```
@@ -101,9 +103,10 @@ Showing 5 of 348 games
 The above command returns a list of owned games using a Steam ID loaded from environment variables.  
 It sorts the games by playtime (descending) and returns the first 5 items. 
 
-A list of supported flags can be seen by running `steamctl games --help`
-
 ```
+Usage:
+  steamctl games [filter] [flags]
+
 Flags:
   -h, --help          help for games
   -i, --id string     Steam ID of user to retrieve owned games from
@@ -111,6 +114,7 @@ Flags:
 
 Global Flags:
   -l, --limit int   maximum number of results to display on screen (default 500)
+  -q, --quiet       suppress non-essential output
 ```
 
 ## Disclaimer  
