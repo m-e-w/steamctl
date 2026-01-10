@@ -76,10 +76,11 @@ Available Commands:
   help        Help about any command
 
 Flags:
-  -h, --help        help for steamctl
-  -l, --limit int   maximum number of results to display on screen (default 500)
-  -q, --quiet       suppress non-essential output
-  -v, --version     version for steamctl
+  -f, --format string   output format (table, json) (default "table")
+  -h, --help            help for steamctl
+  -l, --limit int       maximum number of results to display on screen (default 500)
+  -q, --quiet           suppress non-essential output
+  -v, --version         version for steamctl
 
 Use "steamctl [command] --help" for more information about a command.
 ```
@@ -113,8 +114,8 @@ Flags:
   -s, --sort string   Sort by: name, playtime, lastplayed (default "name")
 
 Global Flags:
-  -l, --limit int   maximum number of results to display on screen (default 500)
-  -q, --quiet       suppress non-essential output
+  -f, --format string   output format (table, json) (default "table")
+  -l, --limit int       maximum number of results to display on screen (default 500)
 ```
 
 ## Disclaimer  
