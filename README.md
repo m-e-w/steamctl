@@ -20,9 +20,9 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
     ```
 4. Download the binary  
     ```bash
-    curl -L "https://github.com/m-e-w/steamctl/releases/download/v0.1.0/steamctl-linux-amd64" -o steamctl
+    curl -L "https://github.com/m-e-w/steamctl/releases/download/v0.1.1/steamctl-linux-amd64" -o steamctl
     ```
-    Release: https://github.com/m-e-w/steamctl/releases/tag/v0.1.0
+    Release: https://github.com/m-e-w/steamctl/releases/tag/v0.1.1
 5. Verify checksum
     ```bash
     sha256sum steamctl
