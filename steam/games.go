@@ -1,6 +1,9 @@
 package steam
 
-import "net/url"
+import (
+	"errors"
+	"net/url"
+)
 
 type Game struct {
 	ID                       int    `json:"appid"`
@@ -24,6 +27,9 @@ type getOwnedGamesResponse struct {
 
 // GetOwnedGames returns the list of games owned by the configured Steam account along with the total game count.
 func (c *Client) GetOwnedGames(steamID string) ([]Game, int, error) {
+	if steamID == "" {
+		return nil, 0, errors.New("steamID is required")
+	}
 	params := url.Values{}
 	params.Set("include_appinfo", "true")
 	params.Set("include_played_free_games", "true")
