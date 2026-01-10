@@ -18,10 +18,11 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
     export STEAM_API_KEY=your_api_key_here
     export STEAM_ID=your_steam_id_here
     ```
-4. Download the binary
+4. Download the binary  
     ```bash
     curl -L "https://github.com/m-e-w/steamctl/releases/download/v0.1.0/steamctl-linux-amd64" -o steamctl
     ```
+    Release: https://github.com/m-e-w/steamctl/releases/tag/v0.1.0
 5. Verify checksum
     ```bash
     sha256sum steamctl
