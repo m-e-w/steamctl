@@ -76,6 +76,7 @@ Available Commands:
   help        Help about any command
 
 Flags:
+  -d, --debug           show debug messages
   -f, --format string   output format (table, json) (default "table")
   -h, --help            help for steamctl
   -l, --limit int       maximum number of results to display on screen (default 500)
@@ -86,7 +87,22 @@ Use "steamctl [command] --help" for more information about a command.
 ```
 
 ### List owned games
+```
+Usage:
+  steamctl games [filter] [flags]
 
+Flags:
+  -h, --help          help for games
+  -i, --id string     Steam ID of user to retrieve owned games from
+  -s, --sort string   Sort by: name, playtime, lastplayed (default "name")
+
+Global Flags:
+  -d, --debug           show debug messages
+  -f, --format string   output format (table, json) (default "table")
+  -l, --limit int       maximum number of results to display on screen (default 500)
+  -q, --quiet           suppress non-essential output
+```
+#### Example 1: Show top N games by playtime
 ```bash
 steamctl games -s playtime -l 5
 ```
@@ -101,23 +117,24 @@ steamctl games -s playtime -l 5
 
 Showing 5 of 348 games
 ```
-The above command returns a list of owned games using a Steam ID loaded from environment variables.  
-It sorts the games by playtime (descending) and returns the first 5 items. 
+The above command returns a list of owned games. It sorts the list of list by playtime (descending) and returns the first 5 items. 
 
+#### Example 2: Filter results by name
+```bash
+steamctl games bio -s playtime
 ```
-Usage:
-  steamctl games [filter] [flags]
-
-Flags:
-  -h, --help          help for games
-  -i, --id string     Steam ID of user to retrieve owned games from
-  -s, --sort string   Sort by: name, playtime, lastplayed (default "name")
-
-Global Flags:
-  -f, --format string   output format (table, json) (default "table")
-  -l, --limit int       maximum number of results to display on screen (default 500)
-  -q, --quiet           suppress non-essential output
 ```
+#  ID      NAME                   PLAYTIME (hrs)  LAST PLAYED
+-  --      ----                   --------------  -----------
+1  8870    BioShock Infinite      15.13           2015-02-15 00:26:55
+2  7670    BioShock               14.83           2020-09-27 11:25:33
+3  409710  BioShock Remastered    5.05            2020-09-27 17:50:44
+4  8850    BioShock 2             0.75            1970-01-01 19:00:00
+5  409720  BioShock 2 Remastered  0.02            2017-09-19 21:13:19
+
+Showing 5 of 348 games
+```
+The above command displays a list of owned games whose names contain the text "bio". It sorts the list by playtime (descending) and returns the first 5 items.
 
 ## Disclaimer  
 
