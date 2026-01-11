@@ -44,10 +44,10 @@ steamid should be highlighted in the output
 
 Replace `your_api_key_here` and `your_steam_id_here` below with your Steam Web API key and Steam ID.  
 
-For Linux, use the commands below   
+Linux
 ```bash
-export STEAM_API_KEY=your_api_key_here
-export STEAM_ID=your_steam_id_here
+export STEAM_API_KEY="your_api_key_here"
+export STEAM_ID="your_steam_id_here"
 ```
 
 Optionally, to avoid pasting your API key in the terminal, you can use a .env file. 
@@ -55,6 +55,16 @@ Optionally, to avoid pasting your API key in the terminal, you can use a .env fi
 If you clone the repos there is a .env.example file you can rename and then use to store/load configuration variables. 
 
 You can store them there and then load them using `source .env`
+
+Windows (PowerShell)
+```powershell
+$env:STEAM_API_KEY = "your_api_key_here"
+$env:STEAM_ID = "your_steam_id_here"
+```
+
+
+
+
 
 ## Install
 
