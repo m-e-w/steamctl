@@ -25,11 +25,8 @@ go.work
 go.work.sum
 
 # Build artifacts
+dist/
 steamctl
-/*/steamctl
-/*/steamctl-windows-amd64.exe
-/*/steamctl-linux-amd64
-/*/checksums.txt
 
 # env file
 .env
