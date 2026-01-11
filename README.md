@@ -27,9 +27,18 @@ If you have a custom profile URL (vanity name), use the method below to find it
 curl your_steam_profile_url | grep steamid
 ```
 
-Example: `curl https://steamcommunity.com/id/profile_name/ | grep steamid`  
+Example
 
-You should see something like: `g_rgProfileData = {"url":"https:\/\/steamcommunity.com\/id\/profile_name\/","steamid":"*****************","personaname":"mara","summary":""};`
+```bash
+curl https://steamcommunity.com/id/profile_name/ | grep steamid
+```
+
+You should see something like: 
+
+```
+g_rgProfileData = {"url":"...","steamid":"*****************","personaname":"mara","summary":""};`
+```
+steamid should be highlighted in the output
 
 ## 3. Environment variables
 
