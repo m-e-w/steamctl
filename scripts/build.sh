@@ -1,14 +1,18 @@
 #!/bin/bash
 
-STEAMCTL_ROOT_DIR="${HOME}/dev/projects/steamctl/"
-STEAMCTL_BUILD_VERSION="dev"
+DIR="${HOME}/dev/projects/steamctl/"
+VERSION="dev"
+OS="linux"
+ARCH="amd64"
+BIN="steamctl-${OS}-${ARCH}"
 
-cd "$STEAMCTL_ROOT_DIR"&&
-STEAMCTL_BUILD_VERSION=$(git describe --tags --dirty --always)
+cd "$DIR"&&
+VERSION=$(git describe --tags --dirty --always)
 
 # Override version only if arg is passed
 if [[ $# -ge 1 ]]; then
-  STEAMCTL_BUILD_VERSION="$1"
+  VERSION="$1"
 fi
 
-go build -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${STEAMCTL_BUILD_VERSION}" -o "steamctl-linux-amd64"
+go build -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" -o "$BIN" &&
+sha256sum "$BIN" > "checksums.txt"
