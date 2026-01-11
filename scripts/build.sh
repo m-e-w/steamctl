@@ -28,33 +28,50 @@ if [[ $# -ge 1 ]]; then
   VERSION="$1"
 fi
 
-echo "Build Version: $VERSION"
+printf "Build Version: $VERSION\n\n"
 
 # Execute go tests
-echo "Running go tests"
+printf "Running go tests\n"
 
 go test ./...
+printf "All tests passed\n\n"
 
-echo "All tests passed. Generating build artifacts"
-
-echo "Cleaning up old build artifacts"
+printf "Cleaning up old build artifacts\n\n"
 rm -f "$LINUX_BIN" "$WINDOWS_BIN" "$CHECKSUMS_FILE"
 
+printf "Generating new build artifacts\n"
 # Linux build
-echo "Building linux binary"
+printf "Building linux binary\n"
 GOOS=linux GOARCH=$ARCH \
 go build \
   -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" \
   -o "$LINUX_BIN"
 
 # Windows build
-echo "Building windows binary"
+printf "Building windows binary\n"
 GOOS=windows GOARCH=$ARCH \
 go build \
   -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" \
   -o "$WINDOWS_BIN"
 
 # Checksums
-echo "Generating checksums.txt file"
+printf "Generating checksums.txt file\n"
 cd "$DIST_DIR"
 sha256sum steamctl-* > "$CHECKSUMS_FILE"
+
+
+printf "\nTesting linux binary\n"
+
+want="$VERSION"
+got=$("$LINUX_BIN" --version)
+
+printf "got:    $got\n"
+printf "expect: $want\n"
+
+if [[ "$got" != *"$want"* ]]; then
+  printf "ERROR: version mismatch\n"
+  printf "\nbuild failed\n"
+  exit 1
+fi
+
+printf "\nBuild: Pass\n"
