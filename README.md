@@ -1,43 +1,93 @@
 # steamctl
 A Go-based CLI tool for querying Steam account data via the Steam Web API.
 
-## Setup
+## Prerequisites
 
-1. Obtain a Steam Web API key.  
-    See: https://partner.steamgames.com/doc/webapi_overview/auth#user-keys
-2. Determine your Steam ID
-    - First find your Steam URL if you don't know it: https://steamcommunity.com/discussions/forum/1/618458030664854265
-    - If you see a numeric ID in the URL, that is your Steam ID. If you have a custom profile URL (vanity name), use the method below to find it:
-        ```bash
-        curl your_steam_profile_url | grep steamid
-        ```
-        - Example: `curl https://steamcommunity.com/id/profile_name/ | grep steamid`
-        - You should see something like: `g_rgProfileData = {"url":"https:\/\/steamcommunity.com\/id\/profile_name\/","steamid":"*****************","personaname":"mara","summary":""};`
-3. Configure environment variables for your Steam API key and Steam ID
-    ```bash
-    export STEAM_API_KEY=your_api_key_here
-    export STEAM_ID=your_steam_id_here
-    ```
-4. Download the binary and checksums.txt file
+**IMPORTANT (PLEASE READ)**
+
+Before you can use steamctl, you will need to first obtain a Steam Web API key as well as identify your Steam ID.
+
+You will also need to set the values of both of these as environment variables. 
+
+### 1. Steam Web API Key
+
+To request a Steam Web API key, see: https://partner.steamgames.com/doc/webapi_overview/auth#user-keys
+
+## 2. Steam ID
+
+First find your Steam URL if you don't know it: https://steamcommunity.com/discussions/forum/1/618458030664854265
+
+Next, look at the URL  
+
+If you see a numeric ID in the URL, that is your Steam ID.  
+
+If you have a custom profile URL (vanity name), use the method below to find it
+
+```bash
+curl your_steam_profile_url | grep steamid
+```
+
+Example: `curl https://steamcommunity.com/id/profile_name/ | grep steamid`  
+
+You should see something like: `g_rgProfileData = {"url":"https:\/\/steamcommunity.com\/id\/profile_name\/","steamid":"*****************","personaname":"mara","summary":""};`
+
+## 3. Environment variables
+
+Replace `your_api_key_here` and `your_steam_id_here` below with your Steam Web API key and Steam ID.  
+
+For Linux, use the commands below   
+```bash
+export STEAM_API_KEY=your_api_key_here
+export STEAM_ID=your_steam_id_here
+```
+
+Optionally, to avoid pasting your API key in the terminal, you can use a .env file. 
+
+If you clone the repos there is a .env.example file you can rename and then use to store/load configuration variables. 
+
+You can store them there and then load them using `source .env`
+
+## Install
+
+### One-line installer (Linux-64)
+Below is a one-line install command you can use to download & install steamctl on Linux platforms.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/m-e-w/steamctl/main/scripts/install.sh | bash
+```
+If you would like to inspect the script first (always advisable), you can download it first with: 
+```bash
+curl -fsSLO https://raw.githubusercontent.com/m-e-w/steamctl/main/scripts/install.sh
+```
+And then open using your text editor of choice e.g. vi, nano, etc
+
+You can then install after using: 
+```bash
+cat install.sh | bash
+```
+
+### Manual (Linux-64)
+
+1. Download the binary and checksums.txt file
     ```bash
     curl -LO "https://github.com/m-e-w/steamctl/releases/latest/download/steamctl-linux-amd64"
     curl -LO "https://github.com/m-e-w/steamctl/releases/latest/download/checksums.txt"
     ```
-5. Verify checksum
+2. Verify checksum
     ```bash
     sha256sum -c checksums.txt
     ```
     The output should match `steamctl-linux-amd64: OK`
 
-6. Rename binary to steamctl
+3. Rename binary to steamctl
     ```bash
     mv steamctl-linux-amd64 steamctl
     ```
-7. Make the binary executable
+4. Make the binary executable
     ```bash 
     chmod +x steamctl
     ```
-8. Ensure your user bin directory exists
+5. Ensure your user bin directory exists
     ```bash
     ls ~/.local/bin
     ```
@@ -45,21 +95,11 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
     ```bash
     mkdir -p ~/.local/bin
     ```
-9. Install to your user bin
+6. Install to your user bin
     ```bash
     mv steamctl ~/.local/bin
     ```
-10. Reload your bash profile
-    ```bash
-    source ~/.profile
-    ```
-    Note:  
-    - ~/.profile is typically where `PATH="$HOME/.local/bin:$PATH"` gets added to PATH. 
-    - ~/.profile is only loaded on login (meaning new terminal windows will not have ~/.local/bin in PATH)
-    - If you are using SSH, simply exiting and reinitiating the connection should suffice
-    - If using WSL, you may need to shutdown/reload to avoid having to source ~/.profile every time you open a new terminal going forwards
-        - i.e. `wsl --shutdown`
-11. Verify installation
+7. Verify installation
     ```bash
     steamctl --help
     ```
