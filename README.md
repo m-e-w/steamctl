@@ -62,10 +62,6 @@ $env:STEAM_API_KEY = "your_api_key_here"
 $env:STEAM_ID = "your_steam_id_here"
 ```
 
-
-
-
-
 ## Install
 
 ### One-line installer (Linux-64)
@@ -94,7 +90,7 @@ cat install.sh | bash
     ```
 2. Verify checksum
     ```bash
-    sha256sum -c checksums.txt
+    grep " steamctl-linux-amd64" checksums.txt | sha256sum -c -
     ```
     The output should match `steamctl-linux-amd64: OK`
 
