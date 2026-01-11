@@ -2,9 +2,11 @@
 
 DIR="${HOME}/dev/projects/steamctl/"
 VERSION="dev"
-OS="linux"
 ARCH="amd64"
-BIN="steamctl-${OS}-${ARCH}"
+
+OUT="dist"
+LINUX_BIN="${OUT}/steamctl-linux-${ARCH}"
+WINDOWS_BIN="${OUT}/steamctl-windows-${ARCH}.exe"
 
 cd "$DIR"&&
 VERSION=$(git describe --tags --dirty --always)
@@ -14,5 +16,17 @@ if [[ $# -ge 1 ]]; then
   VERSION="$1"
 fi
 
-go build -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" -o "$BIN" &&
-sha256sum "$BIN" > "checksums.txt"
+# Linux build
+GOOS=linux GOARCH=$ARCH \
+go build \
+  -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" \
+  -o "$LINUX_BIN"
+
+# Windows build
+GOOS=windows GOARCH=$ARCH \
+go build \
+  -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" \
+  -o "$WINDOWS_BIN"
+
+cd "$OUT"&&
+sha256sum steamctl-* > checksums.txt
