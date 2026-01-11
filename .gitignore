@@ -24,10 +24,10 @@ profile.cov
 go.work
 go.work.sum
 
-# Go build artifacts
+# Bbuild artifacts
 /steamctl
 /steamctl-linux-amd64
-
+/checksums.txt
 # env file
 .env
 
