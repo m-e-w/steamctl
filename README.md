@@ -134,7 +134,7 @@ steamctl games bio -s playtime
 
 Showing 5 of 348 games
 ```
-The above command displays a list of owned games whose names contain the text "bio". It sorts the list by playtime (descending) and returns the first 5 items.
+The above command displays a list of owned games whose names contain the text "bio". It sorts the list by playtime (descending).
 
 ## Disclaimer  
 
