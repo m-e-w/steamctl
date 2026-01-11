@@ -132,9 +132,9 @@ Available Commands:
 
 Flags:
   -d, --debug           show debug messages
-  -f, --format string   output format (table, json) (default "table")
   -h, --help            help for steamctl
   -l, --limit int       maximum number of results to display on screen (default 500)
+  -o, --output string   output format (table, json) (default "table")
   -q, --quiet           suppress non-essential output
   -v, --version         version for steamctl
 
@@ -153,8 +153,8 @@ Flags:
 
 Global Flags:
   -d, --debug           show debug messages
-  -f, --format string   output format (table, json) (default "table")
   -l, --limit int       maximum number of results to display on screen (default 500)
+  -o, --output string   output format (table, json) (default "table")
   -q, --quiet           suppress non-essential output
 ```
 #### Example 1: Show top N games by playtime
