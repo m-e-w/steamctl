@@ -66,7 +66,7 @@ Examples:
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 		defer w.Flush()
 
-		if !quiet && format == "table" {
+		if !quiet && output == "table" {
 			fmt.Fprintln(w, "\n#\tID\tNAME\tPLAYTIME (hrs)\tLAST PLAYED")
 			fmt.Fprintln(w, "-\t--\t----\t--------------\t-----------")
 		}
@@ -82,7 +82,7 @@ Examples:
 			}
 			count++
 
-			if format == "table" {
+			if output == "table" {
 				fmt.Fprintf(
 					w,
 					"%d\t%d\t%s\t%.2f\t%v\n",
@@ -93,17 +93,17 @@ Examples:
 					cli.FormatUnixTime(item.RtimeLastPlayed),
 				)
 			}
-			if format == "json" {
+			if output == "json" {
 				results = append(results, item)
 			}
 
 		}
-		if format == "json" {
+		if output == "json" {
 			enc := json.NewEncoder(os.Stdout)
 			enc.SetIndent("", "  ")
 			return enc.Encode(results)
 		}
-		if !quiet && format == "table" {
+		if !quiet && output == "table" {
 			fmt.Fprintf(w, "\nShowing %d of %d games\n", count, total)
 		}
 

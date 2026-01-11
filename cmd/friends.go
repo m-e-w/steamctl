@@ -67,7 +67,7 @@ Examples:
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 		defer w.Flush()
 
-		if !quiet && format == "table" {
+		if !quiet && output == "table" {
 			fmt.Fprintln(w, "\n#\tID\tNAME\tLast LOG\tCREATED\tPROFILE URL")
 			fmt.Fprintln(w, "-\t--\t----\t--------\t-------\t-----------")
 		}
@@ -83,7 +83,7 @@ Examples:
 			}
 			count++
 
-			if format == "table" {
+			if output == "table" {
 				fmt.Fprintf(
 					w,
 					"%d\t%s\t%s\t%v\t%v\t%s\n",
@@ -98,12 +98,12 @@ Examples:
 				results = append(results, item)
 			}
 		}
-		if format == "json" {
+		if output == "json" {
 			enc := json.NewEncoder(os.Stdout)
 			enc.SetIndent("", "  ")
 			return enc.Encode(results)
 		}
-		if !quiet && format == "table" {
+		if !quiet && output == "table" {
 			fmt.Fprintf(w, "\nShowing %d of %d friends\n", count, len(items))
 		}
 
