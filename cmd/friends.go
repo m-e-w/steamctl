@@ -68,7 +68,7 @@ Examples:
 		defer w.Flush()
 
 		if !quiet && output == "table" {
-			fmt.Fprintln(w, "\n#\tID\tNAME\tLast LOG\tCREATED\tPROFILE URL")
+			fmt.Fprintln(w, "#\tID\tNAME\tLast LOG\tCREATED\tPROFILE URL")
 			fmt.Fprintln(w, "-\t--\t----\t--------\t-------\t-----------")
 		}
 
@@ -102,9 +102,6 @@ Examples:
 			enc := json.NewEncoder(os.Stdout)
 			enc.SetIndent("", "  ")
 			return enc.Encode(results)
-		}
-		if !quiet && output == "table" {
-			fmt.Fprintf(w, "\nShowing %d of %d friends\n", count, len(items))
 		}
 
 		return nil

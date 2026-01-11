@@ -41,7 +41,7 @@ Examples:
 		}
 
 		// Get items
-		items, total, err := steamClient.GetOwnedGames(steamID)
+		items, _, err := steamClient.GetOwnedGames(steamID)
 		if err != nil {
 			return err
 		}
@@ -67,7 +67,7 @@ Examples:
 		defer w.Flush()
 
 		if !quiet && output == "table" {
-			fmt.Fprintln(w, "\n#\tID\tNAME\tPLAYTIME (hrs)\tLAST PLAYED")
+			fmt.Fprintln(w, "#\tID\tNAME\tPLAYTIME (hrs)\tLAST PLAYED")
 			fmt.Fprintln(w, "-\t--\t----\t--------------\t-----------")
 		}
 
@@ -102,9 +102,6 @@ Examples:
 			enc := json.NewEncoder(os.Stdout)
 			enc.SetIndent("", "  ")
 			return enc.Encode(results)
-		}
-		if !quiet && output == "table" {
-			fmt.Fprintf(w, "\nShowing %d of %d games\n", count, total)
 		}
 
 		return nil
