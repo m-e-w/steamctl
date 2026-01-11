@@ -18,26 +18,26 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
     export STEAM_API_KEY=your_api_key_here
     export STEAM_ID=your_steam_id_here
     ```
-4. Download the binary  
+4. Download the binary and checksums.txt file
     ```bash
-    curl -L "https://github.com/m-e-w/steamctl/releases/latest/download/steamctl-linux-amd64" -o steamctl
+    curl -LO "https://github.com/m-e-w/steamctl/releases/latest/download/steamctl-linux-amd64"
+    curl -LO "https://github.com/m-e-w/steamctl/releases/latest/download/checksums.txt"
     ```
-    Release: https://github.com/m-e-w/steamctl/releases/latest
 5. Verify checksum
     ```bash
-    sha256sum steamctl
+    sha256sum -c checksums.txt
     ```
-    The output should match the SHA256 checksum shown in the GitHub Releases UI.
-    
-    Example: 
+    The output should match `steamctl-linux-amd64: OK`
 
-    ![Github Releases UI Image](docs/screenshots/github_releases_sha256.png?raw=true "Github Releases UI Image")
-
-6. Make the binary executable
+6. Rename binary to steamctl
+    ```bash
+    mv steamctl-linux-amd64 steamctl
+    ```
+7. Make the binary executable
     ```bash 
     chmod +x steamctl
     ```
-7. Ensure your user bin directory exists
+8. Ensure your user bin directory exists
     ```bash
     ls ~/.local/bin
     ```
@@ -45,11 +45,11 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
     ```bash
     mkdir -p ~/.local/bin
     ```
-8. Install to your user bin
+9. Install to your user bin
     ```bash
     mv steamctl ~/.local/bin
     ```
-9. Reload your bash profile
+10. Reload your bash profile
     ```bash
     source ~/.profile
     ```
@@ -59,7 +59,7 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
     - If you are using SSH, simply exiting and reinitiating the connection should suffice
     - If using WSL, you may need to shutdown/reload to avoid having to source ~/.profile every time you open a new terminal going forwards
         - i.e. `wsl --shutdown`
-10. Verify installation
+11. Verify installation
     ```bash
     steamctl --help
     ```
