@@ -16,6 +16,7 @@ ARCH="amd64"
 LINUX_BIN="${DIST_DIR}/steamctl-linux-${ARCH}"
 WINDOWS_BIN="${DIST_DIR}/steamctl-windows-${ARCH}.exe"
 CHECKSUMS_FILE="${DIST_DIR}/checksums.txt"
+BUILD_MANIFEST="${ROOT_DIR}/manifest.txt"
 
 # cd to project directory
 cd "$ROOT_DIR"
@@ -28,7 +29,25 @@ if [[ $# -ge 1 ]]; then
   VERSION="$1"
 fi
 
-printf "Build Version: $VERSION\n\n"
+printf "Build Version: ${VERSION}\n"
+
+# Calculate a new hash of all git tracked files to check against manifest hash
+BUILD_HASH=$(git ls-files -z | sort -z | xargs -0 sha256sum | sha256sum | awk '{print $1}')
+printf "Build Hash: ${BUILD_HASH}\n"
+
+MANIFEST_HASH=""
+if [[ -f "$BUILD_MANIFEST" ]]; then
+  MANIFEST_HASH="$(cat "$BUILD_MANIFEST")"
+fi
+printf "Manifest Hash: ${MANIFEST_HASH}\n"
+
+if [[ "$BUILD_HASH" == "$MANIFEST_HASH" ]]; then
+  printf "No changes to build. Exiting.\n"
+  exit 0
+fi
+
+# Update manifest hash if changes detected
+printf "%s\n" "$BUILD_HASH" > "$BUILD_MANIFEST"
 
 # Execute go tests
 printf "Running go tests\n"
