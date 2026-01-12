@@ -1,13 +1,35 @@
 package steam
 
 import (
+	"fmt"
 	"os"
+	"path/filepath"
 	"testing"
+
+	"github.com/spf13/viper"
 )
 
 func TestGetOwnedGames(t *testing.T) {
 	apiKey := os.Getenv("STEAM_API_KEY")
 	steamID := os.Getenv("STEAM_ID")
+
+	home, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+	configDir := filepath.Join(home, ".steamctl")
+
+	viper.SetConfigName("config")
+	viper.SetConfigType("toml")
+	viper.AddConfigPath(configDir)
+
+	err = viper.ReadInConfig()
+	if err != nil {
+		// Do nothing
+	}
+	apiKey = viper.GetString("default.steam_api_key")
+	steamID = viper.GetString("default.steam_id")
 
 	// Fail immediately if we have no key or steam id
 	if apiKey == "" || steamID == "" {

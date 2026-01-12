@@ -63,7 +63,7 @@ fi
 printf "      diff: changed\n"
 
 # Execute go tests
-TEST_OUTPUT="$(go test ./... 2>&1)"
+TEST_OUTPUT="$(go test -count=1 ./... 2>&1)"
 TEST_RESULT=$?
 if [[ $TEST_RESULT -eq 0 ]]; then
   printf "    tests:\n"
