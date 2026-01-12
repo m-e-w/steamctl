@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e 
-
 # This will point to the location of install.sh wherever it is
 # example /home/mew/dev/projects/steamctl/scripts
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -13,10 +11,15 @@ VERSION="dev"
 ARCH="amd64"
 
 # Build artifacts
-LINUX_BIN="${DIST_DIR}/steamctl-linux-${ARCH}"
-WINDOWS_BIN="${DIST_DIR}/steamctl-windows-${ARCH}.exe"
-CHECKSUMS_FILE="${DIST_DIR}/checksums.txt"
-BUILD_MANIFEST="${ROOT_DIR}/manifest.txt"
+LINUX_FILE_NAME="steamctl-linux-${ARCH}"
+WINDOWS_FILE_NAME="steamctl-windows-${ARCH}.exe"
+CHECKSUM_FILE_NAME="checksums.txt"
+MANIFEST_FILE_NAME="manifest.txt"
+
+LINUX_BIN="${DIST_DIR}/${LINUX_FILE_NAME}"
+WINDOWS_BIN="${DIST_DIR}/${WINDOWS_FILE_NAME}"
+CHECKSUMS_FILE="${DIST_DIR}/${CHECKSUM_FILE_NAME}"
+BUILD_MANIFEST="${ROOT_DIR}/${MANIFEST_FILE_NAME}"
 
 # cd to project directory
 cd "$ROOT_DIR"
@@ -29,7 +32,8 @@ if [[ $# -ge 1 ]]; then
   VERSION="$1"
 fi
 
-printf "Build Version: ${VERSION}\n"
+printf "$(date -u -Is):\n"
+printf "  build:\n    version: ${VERSION}\n"
 
 # Calculate a new hash of all git tracked files to check against manifest hash
 BUILD_HASH=$(
@@ -41,65 +45,79 @@ BUILD_HASH=$(
   | awk '{print $1}'
 )
 
-printf "Build Hash: ${BUILD_HASH}\n"
+printf "    hash: ${BUILD_HASH}\n"
 
 MANIFEST_HASH=""
 if [[ -f "$BUILD_MANIFEST" ]]; then
   MANIFEST_HASH="$(cat "$BUILD_MANIFEST")"
 fi
 
-printf "Manifest Hash: ${MANIFEST_HASH}\n"
+printf "    manifest: ${MANIFEST_HASH}\n"
 
 if [[ "$BUILD_HASH" == "$MANIFEST_HASH" ]]; then
-  printf "No changes to build. Exiting.\n"
+  printf "    diff: unchanged\n"
+  printf "  result: skip\n"
   exit 0
 fi
-
-# Update manifest hash if changes detected
-printf "%s\n" "$BUILD_HASH" > "$BUILD_MANIFEST"
+printf "    diff: changed\n"
 
 # Execute go tests
-printf "Running go tests\n"
+TEST_OUTPUT="$(go test ./... 2>&1)"
+TEST_RESULT=$?
+if [[ $TEST_RESULT -eq 0 ]]; then
+  printf "  tests:\n    result: pass\n"
+  printf "    output: |\n"
+  while IFS= read -r line; do
+    printf "      %s\n" "$line"
+  done <<< "$TEST_OUTPUT"
 
-go test ./...
-printf "All tests passed\n\n"
+  # Update manifest hash if changes detected and tests pass
+  printf "%s\n" "$BUILD_HASH" > "$BUILD_MANIFEST"
 
-printf "Cleaning up old build artifacts\n\n"
-rm -f "$LINUX_BIN" "$WINDOWS_BIN" "$CHECKSUMS_FILE"
+  rm -f "$LINUX_BIN" "$WINDOWS_BIN" "$CHECKSUMS_FILE"
 
-printf "Generating new build artifacts\n"
-# Linux build
-printf "Building linux binary\n"
-GOOS=linux GOARCH=$ARCH \
-go build \
-  -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" \
-  -o "$LINUX_BIN"
+  # Linux build
+  GOOS=linux GOARCH=$ARCH \
+  go build \
+    -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" \
+    -o "$LINUX_BIN"
 
-# Windows build
-printf "Building windows binary\n"
-GOOS=windows GOARCH=$ARCH \
-go build \
-  -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" \
-  -o "$WINDOWS_BIN"
+  # Windows build
+  GOOS=windows GOARCH=$ARCH \
+  go build \
+    -ldflags "-X github.com/m-e-w/steamctl/cmd.version=${VERSION}" \
+    -o "$WINDOWS_BIN"
+  
+  # Checksums
+  cd "$DIST_DIR"
+  sha256sum steamctl-* > "$CHECKSUMS_FILE"
 
-# Checksums
-printf "Generating checksums.txt file\n"
-cd "$DIST_DIR"
-sha256sum steamctl-* > "$CHECKSUMS_FILE"
+  want="$VERSION"
+  got=$("$LINUX_BIN" --version)
 
+  printf "  verify:\n"
+  printf "    got: $got\n"
+  printf "    want: $want\n"
+  if [[ "$got" != *"$want"* ]]; then
+    printf "    result: fail\n"
+    printf "  result: fail\n"
+  else
+    printf "    result: pass\n"
+    
+    ARTIFACTS=$(printf '%s ' *)
+    printf "  artifacts: ${ARTIFACTS}\n"
 
-printf "\nTesting linux binary\n"
-
-want="$VERSION"
-got=$("$LINUX_BIN" --version)
-
-printf "got:    $got\n"
-printf "expect: $want\n"
-
-if [[ "$got" != *"$want"* ]]; then
-  printf "ERROR: version mismatch\n"
-  printf "\nbuild failed\n"
-  exit 1
+    if [[ "$ARTIFACTS" == *"$LINUX_FILE_NAME"* && "$ARTIFACTS" == *"$WINDOWS_FILE_NAME"* && "$ARTIFACTS" == *"$CHECKSUM_FILE_NAME"* ]]; then
+      printf "  result: pass\n"
+    else
+      printf "  result: fail\n"
+    fi
+  fi
+else
+  printf "  tests:\n    result: fail\n"
+  printf "    output: |\n"
+  while IFS= read -r line; do
+    printf "      %s\n" "$line"
+  done <<< "$TEST_OUTPUT"
+  printf "  result: fail\n"
 fi
-
-printf "\nBuild: Pass\n"
