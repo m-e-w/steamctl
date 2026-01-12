@@ -1,6 +1,23 @@
 # steamctl
 A Go-based CLI tool for querying Steam account data via the Steam Web API.
 
+## Table of Contents
+
+- [steamctl](#steamctl)
+  - [Prerequisites](#prerequisites)
+    - [Steam Web API Key](#1-steam-web-api-key)
+    - [Steam ID](#2-steam-id)
+    - [Environment variables](#3-environment-variables)
+  - [Install](#install)
+    - [One-line installer (Linux-64)](#one-line-installer-linux-64)
+    - [One-line installer (Windows-64)](#one-line-installer-windows-64)
+    - [Manual (Linux-64)](#manual-linux-64)
+  - [Usage](#usage)
+    - [List owned games](#list-owned-games)
+      - [Example 1: Show top N games by playtime](#example-1-show-top-n-games-by-playtime)
+      - [Example 2: Filter results by name](#example-2-filter-results-by-name)
+  - [Disclaimer](#disclaimer)
+
 ## Prerequisites
 
 **IMPORTANT (PLEASE READ)**
