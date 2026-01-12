@@ -26,13 +26,11 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
 
 Before you can use steamctl, you will need to first obtain a Steam Web API key as well as identify your Steam ID.
 
-You will also need to set the values of both of these as environment variables. 
-
-### 1. Steam Web API Key
+### Steam Web API Key
 
 To request a Steam Web API key, see: https://partner.steamgames.com/doc/webapi_overview/auth#user-keys
 
-## 2. Steam ID
+## Steam ID
 
 First find your Steam URL if you don't know it: https://steamcommunity.com/discussions/forum/1/618458030664854265
 
