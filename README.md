@@ -7,7 +7,6 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
   - [Prerequisites](#prerequisites)
     - [Steam Web API Key](#1-steam-web-api-key)
     - [Steam ID](#2-steam-id)
-    - [Environment variables](#3-environment-variables)
   - [Install](#install)
     - [One-line installer (Linux-64)](#one-line-installer-linux-64)
     - [One-line installer (Windows-64)](#one-line-installer-windows-64)
