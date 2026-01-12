@@ -32,8 +32,9 @@ if [[ $# -ge 1 ]]; then
   VERSION="$1"
 fi
 
-printf "$(date -u -Is):\n"
-printf "  build:\n    version: ${VERSION}\n"
+TIME=$(date -u -Is)
+printf "  - timestamp: ${TIME}\n"
+printf "    build:\n      version: ${VERSION}\n"
 
 # Calculate a new hash of all git tracked files to check against manifest hash
 BUILD_HASH=$(
@@ -45,31 +46,32 @@ BUILD_HASH=$(
   | awk '{print $1}'
 )
 
-printf "    hash: ${BUILD_HASH}\n"
+printf "      hash: ${BUILD_HASH}\n"
 
 MANIFEST_HASH=""
 if [[ -f "$BUILD_MANIFEST" ]]; then
   MANIFEST_HASH="$(cat "$BUILD_MANIFEST")"
 fi
 
-printf "    manifest: ${MANIFEST_HASH}\n"
+printf "      manifest: ${MANIFEST_HASH}\n"
 
 if [[ "$BUILD_HASH" == "$MANIFEST_HASH" ]]; then
-  printf "    diff: unchanged\n"
-  printf "  result: skip\n"
+  printf "      diff: unchanged\n"
+  printf "    pipeline_result: skip\n"
   exit 0
 fi
-printf "    diff: changed\n"
+printf "      diff: changed\n"
 
 # Execute go tests
 TEST_OUTPUT="$(go test ./... 2>&1)"
 TEST_RESULT=$?
 if [[ $TEST_RESULT -eq 0 ]]; then
-  printf "  tests:\n    result: pass\n"
-  printf "    output: |\n"
+  printf "    tests:\n"
+  printf "      output: |\n"
   while IFS= read -r line; do
-    printf "      %s\n" "$line"
+    printf "        %s\n" "$line"
   done <<< "$TEST_OUTPUT"
+  printf "      result: pass\n"
 
   # Update manifest hash if changes detected and tests pass
   printf "%s\n" "$BUILD_HASH" > "$BUILD_MANIFEST"
@@ -95,29 +97,32 @@ if [[ $TEST_RESULT -eq 0 ]]; then
   want="$VERSION"
   got=$("$LINUX_BIN" --version)
 
-  printf "  verify:\n"
-  printf "    got: $got\n"
-  printf "    want: $want\n"
+  printf "    verify:\n"
+  printf "      got: $got\n"
+  printf "      want: $want\n"
   if [[ "$got" != *"$want"* ]]; then
-    printf "    result: fail\n"
-    printf "  result: fail\n"
+    printf "      result: fail\n"
+    printf "    pipeline_result: fail\n"
   else
-    printf "    result: pass\n"
+    printf "      result: pass\n"
     
     ARTIFACTS=$(printf '%s ' *)
-    printf "  artifacts: ${ARTIFACTS}\n"
+    printf "    artifacts:\n      got: ${ARTIFACTS}\n      want: ${CHECKSUM_FILE_NAME} ${LINUX_FILE_NAME} ${WINDOWS_FILE_NAME}\n"
 
     if [[ "$ARTIFACTS" == *"$LINUX_FILE_NAME"* && "$ARTIFACTS" == *"$WINDOWS_FILE_NAME"* && "$ARTIFACTS" == *"$CHECKSUM_FILE_NAME"* ]]; then
-      printf "  result: pass\n"
+      printf "      result: pass\n" 
+      printf "    pipeline_result: pass\n"
     else
-      printf "  result: fail\n"
+    printf "      result: fail\n" 
+    printf "    pipeline_result: fail\n"
     fi
   fi
 else
-  printf "  tests:\n    result: fail\n"
-  printf "    output: |\n"
+  printf "    tests:\n"
+  printf "      output: |\n"
   while IFS= read -r line; do
-    printf "      %s\n" "$line"
+    printf "        %s\n" "$line"
   done <<< "$TEST_OUTPUT"
-  printf "  result: fail\n"
+  printf "      result: fail\n"
+  printf "    pipeline_result: fail\n"
 fi
