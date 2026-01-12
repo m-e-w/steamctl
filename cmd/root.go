@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/m-e-w/steamctl/steam"
 	"github.com/spf13/cobra"
@@ -75,12 +76,27 @@ func initConfig() {
 	viper.AutomaticEnv()
 
 	steamAPIKey := viper.GetString("STEAM_API_KEY")
-	if steamAPIKey == "" {
-		fmt.Fprintln(os.Stderr, "STEAM_API_KEY is not set")
-		os.Exit(1)
+	steamIDEnv = viper.GetString("STEAM_ID")
+	if steamAPIKey == "" || steamIDEnv == "" {
+		home, err := os.UserHomeDir()
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		configDir := filepath.Join(home, ".steamctl")
+
+		viper.SetConfigName("config")
+		viper.SetConfigType("toml")
+		viper.AddConfigPath(configDir)
+
+		err = viper.ReadInConfig()
+		if err != nil {
+			// Do nothing
+		}
+		steamAPIKey = viper.GetString("default.steam_api_key")
+		steamIDEnv = viper.GetString("default.steam_id")
 	}
 
-	steamIDEnv = viper.GetString("STEAM_ID")
 	steamClient = steam.NewClient(
 		steamAPIKey,
 		debug,
