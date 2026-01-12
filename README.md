@@ -12,6 +12,9 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
     - [One-line installer (Linux-64)](#one-line-installer-linux-64)
     - [One-line installer (Windows-64)](#one-line-installer-windows-64)
     - [Manual (Linux-64)](#manual-linux-64)
+  - [Configure](#configure)
+    - [Using the configure command](#configure-command)
+    - [Environment variables](#environment-variables)
   - [Usage](#usage)
     - [List owned games](#list-owned-games)
       - [Example 1: Show top N games by playtime](#example-1-show-top-n-games-by-playtime)
@@ -56,28 +59,6 @@ You should see something like:
 g_rgProfileData = {"url":"...","steamid":"*****************","personaname":"mara","summary":""};`
 ```
 steamid should be highlighted in the output
-
-## 3. Environment variables
-
-Replace `your_api_key_here` and `your_steam_id_here` below with your Steam Web API key and Steam ID.  
-
-Linux
-```bash
-export STEAM_API_KEY="your_api_key_here"
-export STEAM_ID="your_steam_id_here"
-```
-
-Optionally, to avoid pasting your API key in the terminal, you can use a .env file. 
-
-If you clone the repos there is a .env.example file you can rename and then use to store/load configuration variables. 
-
-You can store them there and then load them using `source .env`
-
-Windows (PowerShell)
-```powershell
-$env:STEAM_API_KEY = "your_api_key_here"
-$env:STEAM_ID = "your_steam_id_here"
-```
 
 ## Install
 
@@ -188,6 +169,45 @@ For more details on working with Execution Policies in PowerShell, see: https://
     ```bash
     steamctl --help
     ```
+
+## Configure
+### configure command
+Use the `steamctl configure` command to setup your local config. You will be prompted for your [Steam Web API Key](#1-steam-web-api-key) and [Steam ID](#2-steam-id). 
+
+A file called `config` will be saved in the `.steamctl` directory within users home directory, i.e. `~/.steamctl/config`
+
+It uses [TOML](https://toml.io/en/) as the configuration file format, generating a file that looks like:
+```
+[default]
+steam_api_key = "your_api_key_here"
+steam_id = "your_steam_id_here"
+```
+Future `steamctl` commands will now attempt to load the Steam Web API Key and Steam ID directly from this file. 
+
+Note: Environment variables (i.e. `STEAM_API_KEY` and `STEAM_ID`) take precedence over the locally stored configuration. This allows you to temporarily override your config for a session if needed.
+
+### Environment Variables
+Environment variables can be used in addition to the `steamctl configure` command to manage configuration state.
+
+Examples for setting environment variables are included below. Be sure to replace `your_api_key_here` and `your_steam_id_here` below with your Steam Web API key and Steam ID.  
+
+Linux
+```bash
+export STEAM_API_KEY="your_api_key_here"
+export STEAM_ID="your_steam_id_here"
+```
+
+Optionally, to avoid pasting your API key in the terminal, you can use a .env file. 
+
+If you clone the repos there is a .env.example file you can rename and then use to store/load configuration variables. 
+
+You can store them there and then load them using `source .env`
+
+Windows (PowerShell)
+```powershell
+$env:STEAM_API_KEY = "your_api_key_here"
+$env:STEAM_ID = "your_steam_id_here"
+```
 
 ## Usage
 ```
