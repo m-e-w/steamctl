@@ -48,13 +48,20 @@ Copy-Item $BinPath $FinalPath -Force
 # Add to user PATH (idempotent)
 $UserPath = [Environment]::GetEnvironmentVariable("PATH", "User")
 
+if ($UserPath.EndsWith(";")) {
+    $NewPath = "$UserPath$InstallDir"
+} else {
+    $NewPath = "$UserPath;$InstallDir"
+}
+
 if ($UserPath -notlike "*$InstallDir*") {
     [Environment]::SetEnvironmentVariable(
         "PATH",
-        "$UserPath;$InstallDir",
+        "$NewPath",
         "User"
     )
 }
+
 
 # Cleanup
 Remove-Item $TempDir -Recurse -Force
