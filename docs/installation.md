@@ -2,7 +2,7 @@
 
 ## Linux
 
-### One-line installer (Linux-64)
+### Linux One-liner (64-bit)
 
 Below is a one-line install command you can use to download & install steamctl on Linux platforms.
 
@@ -30,7 +30,7 @@ Verify installation
 steamctl --help
 ```
 
-### Manual (Linux-64)
+### Linux Manual Install (64-bit)
 
 1. Download the binary and checksums.txt file
     ```bash
@@ -66,7 +66,7 @@ steamctl --help
 
 ## Windows
 
-### One-line installer (Windows-64)
+### Windows One-liner (64-bit)
 
 Below is a one-line install command you can use to download & install steamctl on Windows platforms.
 

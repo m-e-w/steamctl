@@ -1,30 +1,69 @@
 # steamctl
 
-A Go-based CLI tool for querying Steam account data via the Steam Web API.
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Go Version](https://img.shields.io/badge/Go-1.25.5-00ADD8)](https://golang.org/) [![Release](https://img.shields.io/github/v/release/m-e-w/steamctl)](https://github.com/m-e-w/steamctl/releases)
+
+🎮 **Query your Steam library like a pro!** A fast, lightweight Go CLI for fetching game data, playtimes, and friends via the Steam Web API. No Steam client required.
+
+---
+
+## Features
+
+- 🚀 **Fast & Lightweight**: Built in Go for quick queries.
+- 📊 **Rich Data**: Get owned games, playtimes, last played dates, and friend lists.
+- 🔧 **Flexible Output**: Table or JSON formats.
+- 🛠️ **Easy Config**: One-command setup with TOML config or env vars.
+- 🌐 **Cross-Platform**: Works on Linux, Windows, and more.
+
+---
+
+## Quick Demo
+
+```bash
+steamctl games -s playtime -l 3
+```
+
+```
+#  ID       NAME          PLAYTIME (hrs)  LAST PLAYED
+1  892970   Valheim       378.37          2025-03-10
+2  578080   PUBG          334.58          2018-10-19
+3  1245620  ELDEN RING    274.92          2024-07-14
+```
+
+---
 
 ## Quick Start
 
-1. Obtain a [Steam Web API Key](docs/prerequisites.md#steam-web-api-key) and find your [Steam Profile URL](docs/prerequisites.md#steam-profile-url).
-2. Install steamctl: [Linux](docs/installation.md#linux) | [Windows](docs/installation.md#windows).
-3. [Configure](docs/configuration.md) your API key and profile.
-4. Use the tool: See [Usage](docs/usage.md) for examples.
+1. 🔑 Obtain a [Steam Web API Key](docs/prerequisites.md#steam-web-api-key) and find your [Steam Profile URL](docs/prerequisites.md#steam-profile-url).
+2. 🛠️ Install steamctl: [Linux One-liner (64-bit)](docs/installation.md#linux-one-liner-64-bit) | [Windows One-liner (64-bit)](docs/installation.md#windows-one-liner-64-bit).
+3. ⚙️ [Configure](docs/configuration.md) your API key and profile.
+4. 🚀 Use the tool: `steamctl friends` (see [Usage](docs/usage.md) for more).
+
+*Steps 1-3 are one-time setup. Enjoy querying your Steam data!* 🎉
+
+---
 
 ## Table of Contents
 
-- [Prerequisites](docs/prerequisites.md)
+- 📋 [Prerequisites](docs/prerequisites.md)
   - [Steam Web API Key](docs/prerequisites.md#steam-web-api-key)
   - [Steam Profile URL](docs/prerequisites.md#steam-profile-url)
-- [Installation](docs/installation.md)
-  - [Linux](docs/installation.md#linux)
-    - [One-line installer (Linux-64)](docs/installation.md#one-line-installer-linux-64)
-    - [Manual (Linux-64)](docs/installation.md#manual-linux-64)
-  - [Windows](docs/installation.md#windows)
-    - [One-line installer (Windows-64)](docs/installation.md#one-line-installer-windows-64)
-- [Configuration](docs/configuration.md)
+- 🛠️ [Installation](docs/installation.md)
+  - [Linux One-liner (64-bit)](docs/installation.md#linux-one-liner-64-bit)
+  - [Linux Manual Install (64-bit)](docs/installation.md#linux-manual-install-64-bit)
+  - [Windows One-liner (64-bit)](docs/installation.md#windows-one-liner-64-bit)
+- ⚙️ [Configuration](docs/configuration.md)
   - [Using the configure command](docs/configuration.md#using-the-configure-command)
   - [Environment Variables](docs/configuration.md#environment-variables)
-- [Usage](docs/usage.md)
+- 📖 [Usage](docs/usage.md)
   - [List owned games](docs/usage.md#list-owned-games)
-    - [Example 1: Show top N games by playtime](docs/usage.md#example-1-show-top-n-games-by-playtime)
-    - [Example 2: Filter results by name](docs/usage.md#example-2-filter-results-by-name)
-- [Disclaimer](docs/disclaimer.md)
+- ⚠️ [Disclaimer](docs/disclaimer.md)
+
+---
+
+## Contributing
+
+Found a bug or want to add features? Open an [issue](https://github.com/m-e-w/steamctl/issues) or PR!
+
+## License
+
+MIT - See [LICENSE](LICENSE) for details.
