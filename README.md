@@ -14,7 +14,7 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
     - [Windows](#windows)
       - [One-line installer (Windows-64)](#one-line-installer-windows-64)
   - [Configure](#configure)
-    - [Using the configure command](#configure-command)
+    - [Using the configure command](#using-the-configure-command)
     - [Environment variables](#environment-variables)
   - [Usage](#usage)
     - [List owned games](#list-owned-games)
@@ -138,7 +138,7 @@ steamctl --help
 
 **Important**
 
-By default, running powershell scripts may be disabled on Windows systems. If you try running the script below you may see the following error: 
+By default, running PowerShell scripts may be disabled on Windows systems. If you try running the script below you may see the following error: 
 ```powershell
 PS C:\Users\devtest\tmp> .\install.ps1
 .\install.ps1 : File C:\Users\devtest\tmp\install.ps1 cannot be loaded because running scripts is disabled on this system. For more information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
@@ -160,19 +160,19 @@ If you see: `Restricted` you need to change your execution policy as such:
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 ```
-Note: This will only adjust the execution policy for the current PowerShell session (meaning there is no need to try to revert this command after as it only lasts/effects the PowerShell session you ran it under)
+Note: This will only adjust the execution policy for the current PowerShell session (meaning there is no need to try to revert this command after as it only lasts/affects the PowerShell session you ran it under)
 
 To confirm it took effect, run `Get-ExecutionPolicy` again and you should now see: `RemoteSigned`. You should now be able to run the install script using `./install.ps1`
 
 For more details on working with Execution Policies in PowerShell, see: [about_Execution_Policies](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.5)
 
 ## Configure
-### configure command
+### Using the configure command
 Use the `steamctl configure` command to setup your local config. You will be prompted for your [Steam Web API Key](#steam-web-api-key) and [Steam Profile URL](#steam-profile-url). 
 
 Note: You can enter either your Steam Profile URL or SteamID64. If you enter your profile URL, your Steam ID will be looked up and stored locally for future requests.
 
-A file called `config` will be saved in the `.steamctl` directory within users home directory, i.e. `~/.steamctl/config`
+A file called `config` will be saved in the `.steamctl` directory within user's home directory, i.e. `~/.steamctl/config`
 
 It uses [TOML](https://toml.io/en/) as the configuration file format, generating a file that looks like:
 ```
@@ -252,7 +252,7 @@ Global Flags:
 4  440      Team Fortress 2      261.33          2022-06-26 23:24:53
 5  1086940  Baldur's Gate 3      220.83          2023-10-09 03:09:38
 ```
-The above command returns a list of owned games. It sorts the list of list by playtime (descending) and returns the first 5 items. 
+The above command returns a list of owned games. It sorts the list of games by playtime (descending) and returns the first 5 items. 
 
 #### Example 2: Filter results by name
 `steamctl games bio -s playtime`
