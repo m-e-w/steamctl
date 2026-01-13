@@ -194,12 +194,6 @@ export STEAM_API_KEY="your_api_key_here"
 export STEAM_ID="your_steam_id_here"
 ```
 
-Optionally, to avoid pasting your API key in the terminal, you can use a .env file. 
-
-If you clone the repos there is a .env.example file you can rename and then use to store/load configuration variables. 
-
-You can store them there and then load them using `source .env`
-
 Windows (PowerShell)
 ```powershell
 $env:STEAM_API_KEY = "your_api_key_here"
