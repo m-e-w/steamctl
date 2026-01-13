@@ -16,7 +16,7 @@
 
 ---
 
-## Quick Demo
+## Demo
 
 ```bash
 steamctl games -s playtime -l 3
