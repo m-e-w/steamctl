@@ -24,7 +24,7 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
 
 **IMPORTANT (PLEASE READ)**
 
-Before you can use steamctl, you will need to first obtain a Steam Web API key as well as identify your Steam ID.
+Before you can use steamctl, you will need to first obtain a Steam Web API key as well as identify your Steam Profile URL.
 
 ### Steam Web API Key
 
@@ -153,15 +153,18 @@ For more details on working with Execution Policies in PowerShell, see: https://
 
 ## Configure
 ### configure command
-Use the `steamctl configure` command to setup your local config. You will be prompted for your [Steam Web API Key](#1-steam-web-api-key) and [Steam ID](#2-steam-id). 
+Use the `steamctl configure` command to setup your local config. You will be prompted for your [Steam Web API Key](#steam-web-api-key) and [Steam Profile URL](#steam-profile-url). 
+
+Note: You can enter either your Steam Profile URL or SteamID64. If you enter your profile URL, your Steam ID will be looked up and stored locally for future requests.
 
 A file called `config` will be saved in the `.steamctl` directory within users home directory, i.e. `~/.steamctl/config`
 
 It uses [TOML](https://toml.io/en/) as the configuration file format, generating a file that looks like:
 ```
 [default]
-steam_api_key = "your_api_key_here"
-steam_id = "your_steam_id_here"
+steam_api_key = ""
+steam_id = ""
+steam_profile_url =""
 ```
 Future `steamctl` commands will now attempt to load the Steam Web API Key and Steam ID directly from this file. 
 
