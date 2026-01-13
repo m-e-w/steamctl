@@ -152,10 +152,6 @@ For more details on working with Execution Policies in PowerShell, see: https://
     ```
 5. Ensure your user bin directory exists
     ```bash
-    ls ~/.local/bin
-    ```
-    If it does not exist:
-    ```bash
     mkdir -p ~/.local/bin
     ```
 6. Install to your user bin
