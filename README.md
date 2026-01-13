@@ -184,7 +184,7 @@ Future `steamctl` commands will now attempt to load the Steam Web API Key and St
 Note: Environment variables (i.e. `STEAM_API_KEY` and `STEAM_ID`) take precedence over the locally stored configuration. This allows you to temporarily override your config for a session if needed.
 
 ### Environment Variables
-Environment variables can be used in addition to the `steamctl configure` command to manage configuration state.
+Environment variables can optionally be used in addition to the `steamctl configure` command to manage configuration state.
 
 Examples for setting environment variables are included below. Be sure to replace `your_api_key_here` and `your_steam_id_here` below with your Steam Web API key and Steam ID.  
 
