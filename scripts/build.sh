@@ -39,7 +39,7 @@ printf "    build:\n      version: ${VERSION}\n"
 # Calculate a new hash of all git tracked files to check against manifest hash
 BUILD_HASH=$(
   git ls-files -z \
-  | grep -zv -E '(^scripts/|^dist/|_test\.go$|^README\.md$|^LICENSE$|^\.gitignore$|^\.env\.example$)' \
+  | grep -zv -E '(^scripts/|^dist/|^docs/|_test\.go$|^README\.md$|^LICENSE$|^\.gitignore$|^\.env\.example$)' \
   | sort -z \
   | xargs -0 sha256sum \
   | sha256sum \
