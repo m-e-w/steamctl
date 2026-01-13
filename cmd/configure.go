@@ -21,7 +21,7 @@ var configureCmd = &cobra.Command{
 This command helps you set up steamctl by generating a configuration file 
 in your home directory (~/.steamctl/config).
 You will be prompted for required values such as your Steam API key
-and Steam ID.
+and Steam Profile URL (or SteamID64).
 
 Configuration precedence:
   1. Environment variables
