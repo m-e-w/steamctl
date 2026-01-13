@@ -213,6 +213,7 @@ Usage:
 
 Available Commands:
   completion  Generate the autocompletion script for the specified shell
+  configure   Create or update steamctl configuration
   friends     List friends associated with the Steam account
   games       List games owned by the Steam account
   help        Help about any command
