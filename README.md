@@ -240,9 +240,7 @@ Global Flags:
   -q, --quiet           suppress non-essential output
 ```
 #### Example 1: Show top N games by playtime
-```bash
-steamctl games -s playtime -l 5
-```
+`steamctl games -s playtime -l 5`
 ```
 #  ID       NAME                 PLAYTIME (hrs)  LAST PLAYED
 -  --       ----                 --------------  -----------
@@ -251,15 +249,12 @@ steamctl games -s playtime -l 5
 3  1245620  ELDEN RING           274.92          2024-07-14 10:03:15
 4  440      Team Fortress 2      261.33          2022-06-26 23:24:53
 5  1086940  Baldur's Gate 3      220.83          2023-10-09 03:09:38
-
-Showing 5 of 348 games
 ```
 The above command returns a list of owned games. It sorts the list of list by playtime (descending) and returns the first 5 items. 
 
 #### Example 2: Filter results by name
-```bash
-steamctl games bio -s playtime
-```
+`steamctl games bio -s playtime`
+
 ```
 #  ID      NAME                   PLAYTIME (hrs)  LAST PLAYED
 -  --      ----                   --------------  -----------
@@ -268,8 +263,6 @@ steamctl games bio -s playtime
 3  409710  BioShock Remastered    5.05            2020-09-27 17:50:44
 4  8850    BioShock 2             0.75            1970-01-01 19:00:00
 5  409720  BioShock 2 Remastered  0.02            2017-09-19 21:13:19
-
-Showing 5 of 348 games
 ```
 The above command displays a list of owned games whose names contain the text "bio". It sorts the list by playtime (descending).
 
