@@ -164,7 +164,7 @@ Note: This will only adjust the execution policy for the current PowerShell sess
 
 To confirm it took effect, run `Get-ExecutionPolicy` again and you should now see: `RemoteSigned`. You should now be able to run the install script using `./install.ps1`
 
-For more details on working with Execution Policies in PowerShell, see: https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.5
+For more details on working with Execution Policies in PowerShell, see: [about_Execution_Policies](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.5)
 
 ## Configure
 ### configure command
