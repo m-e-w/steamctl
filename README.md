@@ -6,7 +6,7 @@ A Go-based CLI tool for querying Steam account data via the Steam Web API.
 - [steamctl](#steamctl)
   - [Prerequisites](#prerequisites)
     - [Steam Web API Key](#steam-web-api-key)
-    - [Steam ID](#steam-id)
+    - [Steam Profile URL](#steam-profile-url)
   - [Install](#install)
     - [One-line installer (Linux-64)](#one-line-installer-linux-64)
     - [One-line installer (Windows-64)](#one-line-installer-windows-64)
@@ -30,32 +30,20 @@ Before you can use steamctl, you will need to first obtain a Steam Web API key a
 
 To request a Steam Web API key, see: https://partner.steamgames.com/doc/webapi_overview/auth#user-keys
 
-## Steam ID
+Direct link to registration page: https://steamcommunity.com/dev/apikey
 
-First find your Steam URL if you don't know it: https://steamcommunity.com/discussions/forum/1/618458030664854265
+### Steam Profile URL
+How to find your Steam Profile URL
 
-Next, look at the URL  
+In the Steam Client/Browser:
+1. Open Steam and click on your Profile Name (top right) or avatar.
+2. Select "View Profile".
+3. Look at the address bar at the top of the page; this is your Steam Profile URL
+4. To copy it: Right-click anywhere on the page (or on your profile name) and select "Copy Page URL"
 
-If you see a numeric ID in the URL, that is your Steam ID.  
-
-If you have a custom profile URL (vanity name), use the method below to find it
-
-```bash
-curl your_steam_profile_url | grep steamid
-```
-
-Example
-
-```bash
-curl https://steamcommunity.com/id/profile_name/ | grep steamid
-```
-
-You should see something like: 
-
-```
-g_rgProfileData = {"url":"...","steamid":"*****************","personaname":"mara","summary":""};`
-```
-steamid should be highlighted in the output
+If you still can't find it, see: 
+- https://www.youtube.com/watch?v=MkBT5G8sG00
+- https://steamcommunity.com/discussions/forum/1/618458030664854265
 
 ## Install
 
