@@ -4,6 +4,8 @@
 
 ### Linux One-liner (64-bit)
 
+[View install script in browser](https://raw.githubusercontent.com/m-e-w/steamctl/main/scripts/install.sh)
+
 Below is a one-line install command you can use to download & install steamctl on Linux platforms.
 
 ```bash
@@ -67,6 +69,8 @@ steamctl --help
 ## Windows
 
 ### Windows One-liner (64-bit)
+
+[View install script in browser](https://raw.githubusercontent.com/m-e-w/steamctl/main/scripts/install.ps1)
 
 Below is a one-line install command you can use to download & install steamctl on Windows platforms.
 

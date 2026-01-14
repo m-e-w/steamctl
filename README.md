@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) [![Go Version](https://img.shields.io/badge/Go-1.25.5-00ADD8)](https://golang.org/) [![Release](https://img.shields.io/github/v/release/m-e-w/steamctl)](https://github.com/m-e-w/steamctl/releases)
 
-🎮 **Query your Steam library like a pro!** A fast, lightweight Go CLI for fetching game data, playtimes, and friends via the Steam Web API. No Steam client required.
+A Go CLI for fetching game data, playtimes, and friends via the Steam Web API. No Steam client required.
 
 ---
 
@@ -29,6 +29,17 @@ steamctl games -s playtime -l 3
 3  1245620  ELDEN RING    274.92          2024-07-14
 ```
 
+```bash
+steamctl friends -s lastlog -l 3
+```
+
+```
+#  ID                 NAME          LAST LOG        CREATED         PROFILE URL
+1  76561198000000000  Alex          2025-01-10      2010-01-01      https://steamcommunity.com/id/alex
+2  76561198000000001  Jordan        2025-01-09      2011-02-02      https://steamcommunity.com/id/jordan
+3  76561198000000002  Taylor        2025-01-08      2012-03-03      https://steamcommunity.com/id/taylor
+```
+
 ---
 
 ## Quick Start
@@ -37,8 +48,6 @@ steamctl games -s playtime -l 3
 2. 🛠️ Install steamctl: [Linux One-liner (64-bit)](docs/installation.md#linux-one-liner-64-bit) | [Windows One-liner (64-bit)](docs/installation.md#windows-one-liner-64-bit).
 3. ⚙️ [Configure](docs/configuration.md) your API key and profile.
 4. 🚀 Use the tool: `steamctl friends` (see [Usage](docs/usage.md) for more).
-
-*Steps 1-3 are one-time setup. Enjoy querying your Steam data!* 🎉
 
 ---
 
@@ -56,6 +65,7 @@ steamctl games -s playtime -l 3
   - [Environment Variables](docs/configuration.md#environment-variables)
 - 📖 [Usage](docs/usage.md)
   - [List owned games](docs/usage.md#list-owned-games)
+  - [List friends](docs/usage.md#list-friends)
 - ⚠️ [Disclaimer](docs/disclaimer.md)
 
 ---

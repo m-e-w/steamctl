@@ -71,3 +71,37 @@ The above command returns a list of owned games. It sorts the list of games by p
 ```
 
 The above command displays a list of owned games whose names contain the text "bio". It sorts the list by playtime (descending).
+
+## List friends
+
+```
+Usage:
+  steamctl friends [filter] [flags]
+
+Flags:
+  -h, --help          help for friends
+  -i, --id string     Steam ID of user to retrieve friends from
+  -s, --sort string   Sort by: created, lastlog, name (default "name")
+
+Global Flags:
+  -d, --debug           show debug messages
+  -l, --limit int       maximum number of results to display on screen (default 500)
+  -o, --output string   output format (table, json) (default "table")
+  -q, --quiet           suppress non-essential output
+```
+
+### Example: Show friends sorted by last log time
+
+`steamctl friends -s lastlog -l 5`
+
+```
+#  ID                 NAME          LAST LOG        CREATED         PROFILE URL
+-  --                 ----          --------        -------         -----------
+1  76561198000000000  Alex          2025-01-10      2010-01-01      https://steamcommunity.com/id/alex
+2  76561198000000001  Jordan        2025-01-09      2011-02-02      https://steamcommunity.com/id/jordan
+3  76561198000000002  Taylor        2025-01-08      2012-03-03      https://steamcommunity.com/id/taylor
+4  76561198000000003  Casey         2025-01-07      2013-04-04      https://steamcommunity.com/id/casey
+5  76561198000000004  Morgan        2025-01-06      2014-05-05      https://steamcommunity.com/id/morgan
+```
+
+The above command returns a list of friends. It sorts the list of friends by last log time (descending) and returns the first 5 items.
