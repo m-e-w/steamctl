@@ -4,7 +4,7 @@
 # example /home/mew/dev/projects/steamctl/scripts
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-DIST_DIR="$ROOT_DIR/dist"
+BUILD_DIR="$HOME/.builds/github.com/m-e-w/steamctl"
 
 # Build variables
 VERSION="dev"
@@ -16,10 +16,10 @@ WINDOWS_FILE_NAME="steamctl-windows-${ARCH}.exe"
 CHECKSUM_FILE_NAME="checksums.txt"
 MANIFEST_FILE_NAME="manifest.txt"
 
-LINUX_BIN="${DIST_DIR}/${LINUX_FILE_NAME}"
-WINDOWS_BIN="${DIST_DIR}/${WINDOWS_FILE_NAME}"
-CHECKSUMS_FILE="${DIST_DIR}/${CHECKSUM_FILE_NAME}"
-BUILD_MANIFEST="${ROOT_DIR}/${MANIFEST_FILE_NAME}"
+LINUX_BIN="${BUILD_DIR}/${LINUX_FILE_NAME}"
+WINDOWS_BIN="${BUILD_DIR}/${WINDOWS_FILE_NAME}"
+CHECKSUMS_FILE="${BUILD_DIR}/${CHECKSUM_FILE_NAME}"
+BUILD_MANIFEST="${BUILD_DIR}/${MANIFEST_FILE_NAME}"
 
 # cd to project directory
 cd "$ROOT_DIR"
@@ -91,7 +91,7 @@ if [[ $TEST_RESULT -eq 0 ]]; then
     -o "$WINDOWS_BIN"
   
   # Checksums
-  cd "$DIST_DIR"
+  cd "$BUILD_DIR"
   sha256sum steamctl-* > "$CHECKSUMS_FILE"
 
   want="$VERSION"
